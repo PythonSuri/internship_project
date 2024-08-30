@@ -15,8 +15,8 @@ class Page:
         self.driver.get(url)
 
     def find_element(self, *locator):
-        logger.info(f'Searching for element {locator}...')
-        return self.driver.find_element(*locator)
+       logger.info(f'Searching for element {locator}...')
+       return self.driver.find_element(*locator)
 
     def find_elements(self, *locator):
         return self.driver.find_elements(*locator)

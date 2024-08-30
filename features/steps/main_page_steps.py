@@ -1,38 +1,37 @@
+from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from behave import when, then
+
 from selenium.webdriver.common.by import By
-from behave import given, when, then
 from time import sleep
 
 
-@given('Open target main page')
-def open_target(context):
-    context.app.main_page.open()
+@when('Main page opens')
+def verify_header_title(context):
+    context.app.main_page.verify_header_title()
 
 
-@when('Search for {product}')
-def search_product(context, product):
-    print('step layer:', product)
-    context.app.header.search_product(product)
+@when('Click on “Secondary” option at the left side menu')
+def click_secondary_opt(context):
+    context.app.main_page.click_secondary_opt()
 
 
-@when('Click on Cart icon')
-def click_cart_icon(context):
-    context.app.header.click_cart_icon()
+@when('Click on Filters')
+def click_filters(context):
+    context.app.main_page.click_filters()
 
 
-@then('Verify header in shown')
-def verify_header_present(context):
-    context.driver.find_element(By.CSS_SELECTOR, "[class*='styles_utilityHeaderContainer']")
+@when('Filter the products by "Want to sell"')
+def select_want_to_sell_criteria(context):
+    context.app.main_page.select_want_to_sell_criteria()
 
 
-@then('Verify header has {number} links')
-def verify_header_links_amount(context, number):
-    number = int(number)  # "6" => 6
-    links = context.driver.find_elements(By.CSS_SELECTOR, "[id*='utilityNav']")
-    assert len(links) == number, f'Expected {number} links but got {len(links)}'
-
-    for i in range(len(links)):
-        links = context.driver.find_elements(By.CSS_SELECTOR, "[id*='utilityNav']")
-        links[i].click()
-        sleep(4)
+@when('Click on Apply Filter')
+def click_apply_filter(context):
+    context.app.main_page.click_apply_filter()
 
 
+@then('Verify all cards have "For sale" tag')
+def verify_filter_results(context):
+    context.app.main_page.verify_filter_results()
